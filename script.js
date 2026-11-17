@@ -90,26 +90,29 @@
   /* role fit */
   var PROJECTS = {
     tourism: { name: 'Tourism Management System', tags: ['html', 'css', 'javascript', 'php', 'mysql', 'frontend', 'backend', 'database', 'crud', 'responsive'] },
-    movie: { name: 'Movie Recommender System', tags: ['python', 'pandas', 'sklearn', 'nlp', 'ml', 'recsys', 'data', 'streamlit', 'deployment'] }
+    movie: { name: 'Movie Recommender System', tags: ['python', 'pandas', 'sklearn', 'nlp', 'ml', 'recsys', 'data', 'streamlit', 'deployment'] },
+    nexagent: { name: 'NexAgent', tags: ['html', 'css', 'javascript', 'node', 'express', 'rest', 'frontend', 'backend', 'responsive', 'llm'] },
+    chatbot: { name: 'LLaMA3 Chatbot', tags: ['python', 'streamlit', 'llm', 'rest', 'backend', 'deployment'] },
+    diabetes: { name: 'Diabetes Prediction Using Machine Learning', tags: ['python', 'pandas', 'numpy', 'sklearn', 'matplotlib', 'seaborn', 'data', 'ml'] }
   };
   var ROLES = {
     swe: {
       name: 'Software Engineer',
       tags: ['python', 'javascript', 'cpp', 'git', 'frontend', 'backend', 'database', 'crud', 'ml', 'deployment'],
-      skills: ['python', 'javascript', 'cpp', 'git', 'github', 'rest', 'php', 'mysql', 'vscode', 'html', 'css'],
-      pitch: "I write clean, efficient code in Python, JavaScript and C++. I've built two complete applications end to end: a full-stack tourism platform and a machine learning recommender."
+      skills: ['python', 'javascript', 'cpp', 'git', 'github', 'rest', 'php', 'mysql', 'vscode', 'html', 'css', 'node', 'express'],
+      pitch: "I write clean, efficient code in Python, JavaScript and C++. I've built full-stack web platforms, recommendation systems and LLM-powered applications, and I apply Python and machine learning skills in my internship at FlyRank AI."
     },
     fullstack: {
       name: 'Full-Stack Developer',
       tags: ['html', 'css', 'javascript', 'php', 'mysql', 'rest', 'frontend', 'backend', 'database', 'crud', 'responsive', 'git'],
-      skills: ['html', 'css', 'javascript', 'php', 'mysql', 'rest', 'git', 'github', 'vscode'],
-      pitch: 'I built a tourism platform from a responsive HTML, CSS and JavaScript frontend to secure PHP backend logic and a MySQL database, with full CRUD for destinations, packages and users.'
+      skills: ['html', 'css', 'javascript', 'php', 'mysql', 'rest', 'git', 'github', 'vscode', 'node', 'express'],
+      pitch: 'I built a tourism platform with a responsive frontend, PHP backend and MySQL database, plus a multi-page agency website with a Node.js/Express API and an embedded assistant.'
     },
     ml: {
       name: 'ML Engineer',
       tags: ['python', 'pandas', 'numpy', 'sklearn', 'tensorflow', 'nlp', 'ml', 'recsys', 'data', 'deployment', 'streamlit'],
-      skills: ['python', 'pandas', 'numpy', 'sklearn', 'tensorflow', 'nlp', 'jupyter', 'colab', 'streamlit'],
-      pitch: "I built a content-based movie recommender using NLP features and cosine similarity, then deployed it with Streamlit. I've also completed the DeepLearning.AI / Stanford Machine Learning course on Coursera."
+      skills: ['python', 'pandas', 'numpy', 'sklearn', 'tensorflow', 'nlp', 'jupyter', 'colab', 'streamlit', 'llm', 'chatbots'],
+      pitch: "As a Machine Learning Intern at FlyRank AI, I work on data preparation, model experimentation and evaluation. My projects include a movie recommender, diabetes prediction and LLM-powered applications."
     },
     data: {
       name: 'Data Analyst',
@@ -120,6 +123,15 @@
   };
   function skillName(id) { var el = $('.sk[data-skill="' + id + '"] .nm'); return el ? el.textContent : id; }
   var rankList = $('#fit-projects');
+  $$('.role').forEach(function (b) {
+    b.querySelector('.n').textContent = ROLES[b.getAttribute('data-role')].skills.length + ' skills';
+  });
+  $$('.filter').forEach(function (b) {
+    var category = b.getAttribute('data-cat');
+    b.querySelector('.c').textContent = $$('.sk').filter(function (s) {
+      return category === 'all' || s.getAttribute('data-cat').split(' ').indexOf(category) !== -1;
+    }).length;
+  });
 
   function setRole(key, animate) {
     var r = ROLES[key]; if (!r) return;
